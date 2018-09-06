@@ -1,3 +1,17 @@
+# This repository is for the advanced lane finding project in udacity self-driving car nanodegree project
+
+**These are the important files:**
+- Advanced-Lane-Lines.ipynb: This is the jupyter notebook containing all the working code for the project.
+- Advanced-Lane-Lines.html: The html version of the file before.
+- output_images: This folder contains the output of the images from folder 'test_images' after they are processed by the code.
+- output_video: This folder holds the output of the videos processed by the code.
+- writeup.md: The write up markdown file required by udacity
+
+
+The following is the introduction to the project by udacity.
+
+
+
 ## Advanced Lane Finding
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
