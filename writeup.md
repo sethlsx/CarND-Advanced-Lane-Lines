@@ -26,10 +26,10 @@ The goals / steps of this project are the following:
 [image6]: ../CarND-Advanced-Lane-Lines/output_images/test5_out.jpg
 [image7]: ../CarND-Advanced-Lane-Lines/output_images/test6_out.jpg
 [image8]: ../CarND-Advanced-Lane-Lines/output_images/test4_out.jpg
-[video1]: ../CarND-Advanced-Lane-Lines/output_video/project_video_output.mp4
+[video1]: ../CarND-Advanced-Lane-Lines/output_video/project_video_output2.mp4
 
 
-**All the codes for this project is contained in the IPython notebook located in "./Advanced_Lane_lines.ipynb".**
+**All the codes for this project is contained in the IPython notebook located in "./Advanced_Lane_lines_2nd_try.ipynb".**
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
@@ -49,7 +49,7 @@ You're reading it!
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step is contained in the first code cell of the IPython notebook located in "./Advanced_Lane_lines.ipynb".
+The code for this step is contained in the first code cell of the IPython notebook located in "./Advanced_Lane_lines_2nd_try.ipynb".
 
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
@@ -69,7 +69,26 @@ To demonstrate this step, I will describe how I apply the distortion correction 
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image. I define multiple functions to perform this. These functions are in the code cell 5 through 8. As I combine all the functions in one function called pipeline. So there is no example of my output for this step.
+I used a combination of color and gradient thresholds to generate a binary image. I define multiple functions to perform this. These functions are in the code cell 5 through 8. 
+
+First, I use the sobel function on x and y direction, the results are showed in the following images:
+
+![gradx][../CarND-Advanced-Lane-Lines/step_by_step/test2_gradx.png]
+![grady][../CarND-Advanced-Lane-Lines/step_by_step/test2_grady.png]
+
+Then I apply the magnitude threshold.
+
+![mag][../CarND-Advanced-Lane-Lines/step_by_step/test2_mag.png]
+
+Then the direction threshold.
+
+![dir][../CarND-Advanced-Lane-Lines/step_by_step/test2_dir.png]
+
+Then s channel of hls.
+![s_channel][../CarND-Advanced-Lane-Lines/step_by_step/test2_s_channel.png]
+
+Then I combine them together.
+![combined][../CarND-Advanced-Lane-Lines/step_by_step/test2_combined.png]
 
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
@@ -78,12 +97,15 @@ The code for my perspective transform includes a function called `perspective_tr
 
 When I was coding, I wrote mutiple plt.imshow() function to check the image transformation step by step to make sure the transformation didn't go wrong. Althoug I comment these lines out, they are still left in the code for future tuning.
 
+Here is an example of the transformed image.
+
+![warped][../CarND-Advanced-Lane-Lines/step_by_step/test2_warped.png]
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 Then I define functions in code cell 10 through 11 to perform this job. I used the sliding windows methods to identify the lines and fit second order polynomial to them.
 
-Here in code cell 12 I define function to search for lines based on the lanes found in the prior frame. Yet I didn't use it for the project, as I'm unfamilier with video processiong. This could be useful in the future.
+Here in code cell 12 I define function to search for lines based on the lanes found in the prior frame. 
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -103,7 +125,15 @@ And all the other images are stored here:'../CarND-Advanced-Lane-Lines/output_im
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](../CarND-Advanced-Lane-Lines/output_video/project_video_output.mp4)
+Here's a [link to my video result](../CarND-Advanced-Lane-Lines/output_video/project_video_output2.mp4)
+
+As I apply the codes to video, I rearrange the functions so that I can process the video frame by frame, and most importantly, process some frame based on the prior frame.
+
+Here are some changes I made.
+
+- I only apply the hough method to find lines to calculate the perspective transformation matrix on the first frame, and all the following frames are processed assuming the matrix stays the same through out the video. This will make the process much smoothier than before. In real life, the hough method could be called every few seconds to rectify the matrix.
+- I call the search_around function on the frames following the frame in which lanes having been found.
+- I smooth the lanes parameters between frames, which worked very well. So I also smooth the curverad.
 
 ---
 

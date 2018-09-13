@@ -1,10 +1,13 @@
 # This repository is for the advanced lane finding project in udacity self-driving car nanodegree project
 
 **These are the important files:**
-- Advanced-Lane-Lines.ipynb: This is the jupyter notebook containing all the working code for the project.
-- Advanced-Lane-Lines.html: The html version of the file before.
+- Advanced-Lane-Lines_1st_try.ipynb: This is the jupyter notebook containing all the working code for the project on the 1st try.
+- Advanced-Lane-Lines_2nd_try.ipynb: This is the jupyter notebook containing all the working code for the project on the 2nd try.
+- Advanced-Lane-Lines.html: The html version of the 1st try notebook file.
+- Advanced-Lane-Lines_2nd_try.html: The html version of the 2nd try notebook file.
 - output_images: This folder contains the output of the images from folder 'test_images' after they are processed by the code.
-- output_video: This folder holds the output of the videos processed by the code.
+- output_video: This folder holds the output of the videos processed by the code. The project_video_output2.mp4 is the one from the 2nd try.
+- step_by_step: This folder holds the step by step images of the codes.
 - writeup.md: The write up markdown file required by udacity
 
 
